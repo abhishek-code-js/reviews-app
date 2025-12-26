@@ -30,14 +30,54 @@ const reviews = [
   },
 ];
 
-//select items - image, job, name, info
-const img = document.getElementById(person-img");
+//select items - image, job, authorname, info
+const img = document.getElementById("person-img");
+const job = document.getElementById("job");
+const author = document.getElementById("author");
+const info = document.getElementById("info");
 
 //select btns - prev - next - random
+const prev = document.querySelector(".prev-btn");
+console.log(prev);
+const next = document.querySelector(".next-btn");
+const random = document.querySelector(".random-btn");
 
 //set starting item
 let currentItem = 0;
 
 // load initial item using DOMContentLoaded
+window.addEventListener("DOMContentLoaded", () => {
+  showPerson(currentItem);
+});
 
 //showPerson based on item
+function showPerson(currentItem) {
+  const item = reviews[currentItem];
+  img.src = item.img;
+  job.textContent = item.job;
+  author.textContent = item.name;
+  info.textContent = item.text;
+}
+
+//prev and next button logic
+
+prev.addEventListener("click", () => {
+  currentItem--;
+  if (currentItem < 0) {
+    currentItem = reviews.length - 1;
+  }
+  showPerson(currentItem);
+});
+
+next.addEventListener("click", () => {
+  currentItem++;
+  if (currentItem > reviews.length - 1) {
+    currentItem = 0;
+  }
+  showPerson(currentItem);
+});
+
+random.addEventListener("click", () => {
+  currentItem = Math.floor(Math.random() * reviews.length);
+  showPerson(currentItem);
+});
